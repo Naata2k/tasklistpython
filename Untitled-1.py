@@ -4,9 +4,10 @@ import sqlite3
 root = Tk()
 root.title("login")
 root.geometry("230x200")
-
+#tallenetaan ikkunan korkeus muuttujaan jottai voidaan muuttaa sitä helposti
 root.taskheight = "265"
 
+#luodaan ikkuna johon päästään sisään kirjautumalla
 def taskScreen():
     global taskSC
     taskSC = Tk()
@@ -59,8 +60,9 @@ def query():
     heading_label = Label(taskSC, text="Helvetica", font=("Helvetica", 16))
 
     heading_label['text'] = "Tehtävä \t ID"
-    heading_label.grid(row=8, column=0, columnspan=2)  
+    heading_label.grid(row=8, column=0, columnspan=2) 
 
+    #sain tämän kohdan allulta
     if hasattr(taskSC, 'query_label'):
         taskSC.query_label['text'] = print_records
     else:
@@ -81,6 +83,7 @@ def submit():
             {
                 'task' : taskScreen.task.get()
             })
+        #aina kun submitti tapahtuu niin ja teksti kenttä ei ole tyhjä niin lisää 15 pixeliä ruudun korkeuteen
         root.taskheight = int(root.taskheight) + 15
         taskSC.geometry("270x" + str(root.taskheight))
     
@@ -100,7 +103,7 @@ def delete():
 
     conn.commit()
     conn.close()
-
+    #deleten kohdalla lähtee 15 pixeliä ruudun korkeudesta
     root.taskheight = int(root.taskheight) - 15
     taskSC.geometry("270x" + str(root.taskheight))
 
@@ -155,6 +158,7 @@ def login():
     login.user = username.get()
     login.password = password.get()
 
+    #Tämä kohta kertoo jos käyttäjänimi tai salasana on virheellinen
     if login.password == "admin" and login.user == "admin":
         taskScreen()
         root.destroy()
